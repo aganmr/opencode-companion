@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "opencode companion",
+    "slug": "opencode-companion",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0f1012",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.opencode.companion"
+    },
+    "android": {
+      "package": "com.opencode.companion",
+      "adaptiveIcon": {
+        "backgroundColor": "#0f1012",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow opencode companion to access your camera to scan opencode remote QR codes."
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+import { MD3DarkTheme } from 'react-native-paper';
+
+/**
+ * Dark theme modeled after opencode's UI: near-black surfaces,
+ * low-chroma grays, and a blue accent.
+ */
+export const oc = {
+  primary: '#4d8dff',
+  onPrimary: '#ffffff',
+  primaryContainer: '#16294a',
+  onPrimaryContainer: '#d4e0ff',
+  secondary: '#8b98e0',
+  onSecondary: '#0d1130',
+  secondaryContainer: '#2a3054',
+  onSecondaryContainer: '#c3c9f2',
+  tertiary: '#3fb950',
+  onTertiary: '#06240f',
+  background: '#0f1012',
+  onBackground: '#e4e6e9',
+  surface: '#16181a',
+  onSurface: '#e4e6e9',
+  surfaceVariant: '#23262a',
+  onSurfaceVariant: '#a3a7ad',
+  surfaceContainerLow: '#1a1c1f',
+  surfaceContainer: '#1e2124',
+  surfaceContainerHigh: '#26292d',
+  surfaceContainerHighest: '#2e3136',
+  outline: '#3c4046',
+  outlineVariant: '#2a2e33',
+  warning: '#e3b341',
+  onWarning: '#221a02',
+  error: '#f85149',
+  onError: '#2b0703',
+};
+
+export const theme = {
+  ...MD3DarkTheme,
+  colors: {
+    ...MD3DarkTheme.colors,
+    primary: oc.primary,
+    onPrimary: oc.onPrimary,
+    primaryContainer: oc.primaryContainer,
+    onPrimaryContainer: oc.onPrimaryContainer,
+    secondary: oc.secondary,
+    onSecondary: oc.onSecondary,
+    secondaryContainer: oc.secondaryContainer,
+    onSecondaryContainer: oc.onSecondaryContainer,
+    tertiary: oc.tertiary,
+    onTertiary: oc.onTertiary,
+    background: oc.background,
+    onBackground: oc.onBackground,
+    surface: oc.surface,
+    onSurface: oc.onSurface,
+    surfaceVariant: oc.surfaceVariant,
+    onSurfaceVariant: oc.onSurfaceVariant,
+    outline: oc.outline,
+    outlineVariant: oc.outlineVariant,
+    error: oc.error,
+    onError: oc.onError,
+  },
+};

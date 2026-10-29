@@ -1,0 +1,17 @@
+# Post-scan success path. Assumes the app is already on the Connect screen with a
+# loaded page (reached via a real QR scan). No launchApp, so it operates in place.
+appId: com.opencode.companion
+---
+# Close FAB is only present in the loaded (non-error) state.
+- assertVisible:
+    id: "connect-close"
+
+# Close FAB opens the quit confirmation dialog.
+- tapOn:
+    id: "connect-close"
+- assertVisible: "Quit app?"
+
+# Cancel dismisses the dialog; we remain on the Connect screen.
+- tapOn: "Cancel"
+- assertVisible:
+    id: "connect-close"

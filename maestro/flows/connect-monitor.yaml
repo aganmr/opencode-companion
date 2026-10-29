@@ -1,0 +1,11 @@
+# Connected-state monitoring. Assumes the app is already on the Connect screen
+# with a loaded page (reached via a real QR scan in the human gate step).
+# No launchApp, so it operates in place.
+appId: com.opencode.companion
+---
+# The page loaded and the device is online -> the status pill reads "Connected".
+- assertVisible: "Connected"
+
+# The close FAB is present in the loaded (non-error) state.
+- assertVisible:
+    id: "connect-close"

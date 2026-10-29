@@ -1,0 +1,18 @@
+# Deterministic E2E: Home, tap a recent session with a dead URL, expect the
+# "Connection problem" panel, then "Scan again" back to Home. No camera scan.
+appId: com.opencode.companion
+---
+- launchApp
+- assertVisible: "Scan QR Code"
+
+# Tap the top recent session card (testID "session-card" -> Android resource-id).
+- tapOn:
+    id: "session-card"
+
+# The URL is dead, so the WebView errors and the panel appears.
+- assertVisible: "Connection problem"
+- assertVisible: "Scan again"
+
+# "Scan again" navigates back to Home.
+- tapOn: "Scan again"
+- assertVisible: "Scan QR Code"

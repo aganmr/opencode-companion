@@ -1,0 +1,45 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.keystore
+keystore.properties
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# NOTE: this is an ejected (bare) Expo app — the native folders are the
+# source of truth and ARE committed. `android/` is present; `ios/` is
+# generated on macOS/Linux via `npx expo prebuild -p ios --yarn` and then
+# committed the same way. (Machine-specific files inside them, e.g.
+# android/local.properties and build output, are ignored by android/.gitignore.)
