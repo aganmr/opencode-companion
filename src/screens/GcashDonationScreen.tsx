@@ -53,17 +53,23 @@ export function GcashDonationScreen() {
         <View style={styles.qrCard}>
           <Image source={QR_IMAGE} style={styles.qrImage} testID="gcash-qr-image" />
         </View>
+        <Text style={styles.hint}>Scan with the GCash app to complete your donation.</Text>
+      </View>
+
+      {/* Bottom footer band: same look as the scanner's permission footer. */}
+      <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, 16) + 8 }]}>
         <Button
           mode="contained"
           icon="download"
           loading={downloading}
           style={styles.downloadButton}
+          contentStyle={styles.downloadButtonContent}
+          labelStyle={styles.downloadButtonLabel}
           onPress={handleDownload}
           testID="download-qr"
         >
           Download QR to phone
         </Button>
-        <Text style={styles.hint}>Saves the QR image to your phone’s gallery.</Text>
       </View>
 
       <Snackbar
@@ -106,27 +112,42 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 24,
   },
   qrCard: {
     backgroundColor: '#ffffff',
     borderRadius: 18,
     padding: 16,
-    marginTop: 18,
   },
   qrImage: {
     width: 264,
     height: 264,
   },
-  downloadButton: {
-    marginTop: 22,
-    alignSelf: 'stretch',
-    borderRadius: 16,
-  },
+  // Same type scale as the scanner's permission text.
   hint: {
-    marginTop: 10,
-    fontSize: 12,
+    marginTop: 22,
+    fontSize: 14,
+    lineHeight: 20,
     color: oc.onSurfaceVariant,
     textAlign: 'center',
+  },
+  // Mirrors the scanner's permission footer (ScannerScreen `permFooter`).
+  footer: {
+    backgroundColor: oc.surfaceContainerLow,
+    borderTopWidth: 1,
+    borderTopColor: oc.outlineVariant,
+    paddingHorizontal: 20,
+    paddingTop: 12,
+  },
+  downloadButton: {
+    borderRadius: 16,
+  },
+  downloadButtonContent: {
+    height: 46,
+  },
+  downloadButtonLabel: {
+    fontSize: 16,
+    fontWeight: '600',
   },
 });

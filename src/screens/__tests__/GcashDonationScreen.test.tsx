@@ -35,7 +35,7 @@ describe('GcashDonationScreen', () => {
     expect(screen.getByText('GCash')).toBeTruthy();
     expect(screen.getByTestId('gcash-qr-image')).toBeTruthy();
     expect(screen.getByText('Download QR to phone')).toBeTruthy();
-    expect(screen.getByText(/saves the qr image to your phone’s gallery/i)).toBeTruthy();
+    expect(screen.getByText('Scan with the GCash app to complete your donation.')).toBeTruthy();
   });
 
   it('shows the saved snackbar when the native save succeeds', async () => {
