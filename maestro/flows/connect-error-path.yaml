@@ -1,16 +1,24 @@
-# Deterministic E2E: Home, tap a recent session with a dead URL, expect the
+# Deterministic E2E: Home, tap a scanned server with a dead URL, expect the
 # "Connection problem" panel, then "Scan again" back to Home. No camera scan.
+#
+# Precondition: the session URL's port must answer with an HTTP error. A
+# dropped port hangs on a multi-minute TCP timeout, so run a 404 server on
+# that port first (see server-404.js) — the WebView's onHttpError then fires
+# in <1s.
 appId: com.opencode.companion
 ---
 - launchApp
 - assertVisible: "Scan QR Code"
 
-# Tap the top recent session card (testID "session-card" -> Android resource-id).
+# Tap the top scanned server card (testID "session-card" -> Android resource-id).
 - tapOn:
     id: "session-card"
 
-# The URL is dead, so the WebView errors and the panel appears.
-- assertVisible: "Connection problem"
+# The 404 server answers immediately, so onHttpError fires in <1s and the
+# panel appears fast. Poll briefly in case of a slow start.
+- extendedWaitUntil:
+    visible: "Connection problem"
+    timeout: 15000
 - assertVisible: "Scan again"
 
 # "Scan again" navigates back to Home.

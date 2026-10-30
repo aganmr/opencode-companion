@@ -5,6 +5,7 @@ import { ScannerScreen } from '../screens/ScannerScreen';
 import { ConnectScreen } from '../screens/ConnectScreen';
 import { AddServerScreen } from '../screens/AddServerScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
+import { GcashDonationScreen } from '../screens/GcashDonationScreen';
 import { oc } from '../theme';
 import type { Server } from '../store/serversSlice';
 
@@ -14,6 +15,7 @@ export type RootStackParamList = {
   Connect: { url: string };
   AddServer: { server?: Server };
   Settings: undefined;
+  GcashDonation: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -31,6 +33,7 @@ export function RootNavigator() {
       <Stack.Screen name="Connect" component={ConnectScreen} />
       <Stack.Screen name="AddServer" component={AddServerScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="GcashDonation" component={GcashDonationScreen} />
     </Stack.Navigator>
   );
 }

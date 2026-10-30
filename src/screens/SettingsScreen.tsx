@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button, Dialog, IconButton, Portal, Snackbar, Switch } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import pkg from '../../package.json';
+import { DonationSheet } from '../components/DonationSheet';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { clearSessions } from '../store/sessionsSlice';
 import { clearServers } from '../store/serversSlice';
@@ -16,7 +17,7 @@ import type { RootStackParamList } from '../navigation/RootNavigator';
 type Nav = NativeStackNavigationProp<RootStackParamList, 'Settings'>;
 
 const DOCS_URL = 'https://opencode.ai/docs';
-const ISSUE_URL = 'https://github.com/sst/opencode/issues';
+const ISSUE_URL = 'https://github.com/aganmr/opencode-companion/issues';
 
 export function SettingsScreen() {
   const navigation = useNavigation<Nav>();
@@ -25,6 +26,8 @@ export function SettingsScreen() {
   const autoHidePill = useAppSelector((s) => s.settings.autoHidePill);
   const webviewZoom = useAppSelector((s) => s.settings.webviewZoom);
   const [confirm, setConfirm] = useState<'sessions' | 'servers' | null>(null);
+  // Slide-up donation sheet (Ko-fi / GCash).
+  const [donationVisible, setDonationVisible] = useState(false);
   const [coffeeSnackVisible, setCoffeeSnackVisible] = useState(false);
 
   const handleConfirmClear = () => {
@@ -101,7 +104,7 @@ export function SettingsScreen() {
           <Card>
             <RowButton
               icon="delete"
-              label="Clear recent sessions"
+              label="Clear scanned servers"
               onPress={() => setConfirm('sessions')}
               testID="clear-sessions"
             />
@@ -139,7 +142,7 @@ export function SettingsScreen() {
               icon="coffee"
               label="Buy me a coffee"
               sub="Enjoying the app? Support development with a coffee. 😉"
-              onPress={() => setCoffeeSnackVisible(true)}
+              onPress={() => setDonationVisible(true)}
               testID="buy-me-a-coffee"
               last
             />
@@ -150,12 +153,12 @@ export function SettingsScreen() {
       <Portal>
         <Dialog visible={confirm !== null} onDismiss={() => setConfirm(null)}>
           <Dialog.Title>
-            {confirm === 'sessions' ? 'Clear recent sessions?' : 'Remove all saved servers?'}
+            {confirm === 'sessions' ? 'Clear scanned servers?' : 'Remove all saved servers?'}
           </Dialog.Title>
           <Dialog.Content>
             <Text style={styles.dialogText}>
               {confirm === 'sessions'
-                ? 'This removes all sessions from your recent list.'
+                ? 'This removes every server from your scanned list.'
                 : 'This removes every server you have saved.'}
             </Text>
           </Dialog.Content>
@@ -167,6 +170,21 @@ export function SettingsScreen() {
           </Dialog.Actions>
         </Dialog>
       </Portal>
+
+      {donationVisible && (
+        <DonationSheet
+          onKofi={() => {
+            // Ko-fi support isn't live yet: dismiss and reuse the
+            // "Coming soon" snackbar.
+            setDonationVisible(false);
+            setCoffeeSnackVisible(true);
+          }}
+          onGcash={() => {
+            setDonationVisible(false);
+            navigation.navigate('GcashDonation');
+          }}
+        />
+      )}
 
       <Snackbar
         visible={coffeeSnackVisible}

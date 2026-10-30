@@ -1,0 +1,14 @@
+{
+  "name": "gcash-image",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "private": true,
+  "codegenConfig": {
+    "name": "GcashImageSpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.opencode.companion.gcash"
+    }
+  }
+}

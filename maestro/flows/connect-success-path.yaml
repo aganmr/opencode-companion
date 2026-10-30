@@ -6,10 +6,10 @@ appId: com.opencode.companion
 - assertVisible:
     id: "connect-close"
 
-# Close FAB opens the quit confirmation dialog.
+# Close FAB opens the disconnect confirmation dialog.
 - tapOn:
     id: "connect-close"
-- assertVisible: "Quit app?"
+- assertVisible: "Disconnect?"
 
 # Cancel dismisses the dialog; we remain on the Connect screen.
 - tapOn: "Cancel"

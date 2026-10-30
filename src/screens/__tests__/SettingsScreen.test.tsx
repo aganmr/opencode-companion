@@ -70,7 +70,7 @@ describe('SettingsScreen', () => {
     expect(screen.getByText('Version')).toBeTruthy();
     expect(screen.getByText('Auto-hide Connected pill')).toBeTruthy();
     expect(screen.getByText('Zoom in WebView')).toBeTruthy();
-    expect(screen.getByText('Clear recent sessions')).toBeTruthy();
+    expect(screen.getByText('Clear scanned servers')).toBeTruthy();
     expect(screen.getByText('Remove all saved servers')).toBeTruthy();
     expect(screen.getByText('opencode documentation')).toBeTruthy();
     expect(screen.getByText('Report an issue')).toBeTruthy();
@@ -94,13 +94,36 @@ describe('SettingsScreen', () => {
     expect(screen.getByText(/with a coffee. 😉/)).toBeTruthy();
   });
 
-  it('opens the coffee snackbar when Buy me a coffee is tapped', async () => {
+  it('opens the donation sheet when Buy me a coffee is tapped', async () => {
     await renderSettings().render;
-    expect(screen.queryByTestId('coming-soon-snackbar')).toBeNull();
+    expect(screen.queryByTestId('donation-sheet')).toBeNull();
 
     await fireEvent.press(screen.getByTestId('buy-me-a-coffee'));
+    expect(await screen.findByTestId('donation-sheet')).toBeTruthy();
+    expect(screen.getByText('Support development')).toBeTruthy();
+    expect(screen.getByText('Ko-fi')).toBeTruthy();
+    expect(screen.getByText('GCash')).toBeTruthy();
+  });
+
+  it('Ko-fi dismisses the sheet and shows the coming-soon snackbar', async () => {
+    await renderSettings().render;
+    await fireEvent.press(screen.getByTestId('buy-me-a-coffee'));
+    await screen.findByTestId('donation-sheet');
+
+    await fireEvent.press(screen.getByTestId('donation-kofi'));
+    expect(screen.queryByTestId('donation-sheet')).toBeNull();
     expect(screen.getByTestId('coming-soon-snackbar')).toBeTruthy();
     expect(screen.getByText('Coming soon')).toBeTruthy();
+  });
+
+  it('GCash dismisses the sheet and navigates to the GCash screen', async () => {
+    await renderSettings().render;
+    await fireEvent.press(screen.getByTestId('buy-me-a-coffee'));
+    await screen.findByTestId('donation-sheet');
+
+    await fireEvent.press(screen.getByTestId('donation-gcash'));
+    expect(screen.queryByTestId('donation-sheet')).toBeNull();
+    expect(mockNavigate).toHaveBeenCalledWith('GcashDonation');
   });
 
   it('defaults the zoom switch to on and persists its toggle in the store', async () => {
@@ -129,7 +152,7 @@ describe('SettingsScreen', () => {
     expect(store.getState().settings.autoHidePill).toBe(true);
   });
 
-  it('clears recent sessions after confirmation', async () => {
+  it('clears scanned servers after confirmation', async () => {
     const { store, render: r } = renderSettings({
       sessions: [{ url: 'http://a', connectedAt: 1 }],
     });
@@ -137,7 +160,7 @@ describe('SettingsScreen', () => {
 
     await r;
     await fireEvent.press(screen.getByTestId('clear-sessions'));
-    expect(await screen.findByText('Clear recent sessions?')).toBeTruthy();
+    expect(await screen.findByText('Clear scanned servers?')).toBeTruthy();
 
     await fireEvent.press(screen.getByText('Clear'));
     expect(store.getState().sessions).toHaveLength(0);
@@ -165,7 +188,7 @@ describe('SettingsScreen', () => {
     expect(mockOpenURL).toHaveBeenCalledWith('https://opencode.ai/docs');
 
     await fireEvent.press(screen.getByTestId('open-issue'));
-    expect(mockOpenURL).toHaveBeenCalledWith('https://github.com/sst/opencode/issues');
+    expect(mockOpenURL).toHaveBeenCalledWith('https://github.com/aganmr/opencode-companion/issues');
   });
 
   it('goes back when the back button is pressed', async () => {

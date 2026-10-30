@@ -5,7 +5,7 @@ export type Session = {
   connectedAt: number;
 };
 
-export const MAX_SESSIONS = 2;
+export const MAX_SESSIONS = 3;
 
 /**
  * Reduce any URL to its server origin (scheme://host:port). opencode's

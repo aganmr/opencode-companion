@@ -1,0 +1,62 @@
+# Deterministic E2E: the donation flow. Home -> Settings -> "Buy me a
+# coffee" -> slide-up sheet. Ko-fi dismisses with the "Coming soon"
+# snackbar; GCash opens the QR screen and the download button saves the
+# QR to the gallery via the native MediaStore module.
+appId: com.opencode.companion
+---
+- launchApp
+- assertVisible: "Scan QR Code"
+
+# The home section is now "SCANNED SERVERS" (rename from RECENT SESSIONS).
+- assertVisible: "SCANNED SERVERS"
+
+# The title-line cog opens Settings.
+- tapOn:
+    id: "settings-button"
+- assertVisible: "Buy me a coffee"
+
+# The coffee row is last in the settings list; bring it fully into view.
+- swipe:
+    direction: UP
+    duration: 400
+
+# The coffee row opens the slide-up donation sheet.
+- tapOn:
+    id: "buy-me-a-coffee"
+- assertVisible:
+    id: "donation-sheet"
+- assertVisible: "Support development"
+- assertVisible: "Ko-fi"
+- assertVisible: "GCash"
+
+# Ko-fi is not live yet: the sheet dismisses and the snackbar appears.
+- tapOn:
+    id: "donation-kofi"
+- extendedWaitUntil:
+    visible: "Coming soon"
+    timeout: 6000
+
+# Re-open the sheet and choose GCash.
+- tapOn:
+    id: "buy-me-a-coffee"
+- assertVisible:
+    id: "donation-sheet"
+- tapOn:
+    id: "donation-gcash"
+
+# The GCash screen shows the QR image and the download button.
+- assertVisible:
+    id: "gcash-qr-image"
+- assertVisible: "Download QR to phone"
+
+# Download saves to the gallery via the native MediaStore module.
+- tapOn:
+    id: "download-qr"
+- extendedWaitUntil:
+    visible: "QR saved to gallery"
+    timeout: 10000
+
+# Back returns to Settings.
+- tapOn:
+    id: "gcash-back"
+- assertVisible: "Buy me a coffee"

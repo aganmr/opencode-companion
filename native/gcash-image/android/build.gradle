@@ -1,0 +1,30 @@
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+  }
+  dependencies {
+    classpath("com.android.tools.build:gradle")
+    classpath("com.facebook.react:react-native-gradle-plugin")
+  }
+}
+
+apply plugin: "com.android.library"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
+
+android {
+  namespace "com.opencode.companion.gcash"
+  // Same ext values the app module uses (set by the root Expo/RN plugins).
+  compileSdk rootProject.ext.compileSdkVersion
+
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+  }
+  // No explicit compileOptions: both the Java and Kotlin defaults (1.8)
+  // stay consistent, which AGP requires.
+}
+
+dependencies {
+  implementation("com.facebook.react:react-android")
+}

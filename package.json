@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "^2.13.0",
     "expo": "~58.0.20",
     "expo-camera": "~58.0.13",
+    "gcash-image": "file:native/gcash-image",
     "expo-status-bar": "~58.0.4",
     "expo-system-ui": "~58.0.6",
     "jest": "~30.5.2",

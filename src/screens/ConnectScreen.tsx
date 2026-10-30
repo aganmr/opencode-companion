@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { Banner, Button, Dialog, FAB, Portal, Text } from 'react-native-paper';
 import { useNetInfo } from '@react-native-community/netinfo';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ErrorPanel } from '../components/ErrorPanel';
 import { useAppSelector } from '../store/hooks';
 import { imeFixScript } from '../lib/webview/imeFix';
@@ -301,9 +302,12 @@ export function ConnectScreen({ route, navigation }: Props) {
 
         {loadState.status !== 'error' && (
           <FAB
-            icon="close"
-            // 18% smaller than the default 56dp medium FAB.
-            customSize={46}
+            icon={({ color }) => (
+              <MaterialCommunityIcons name="close" size={22} color={color} />
+            )}
+            // 42dp: the former 46dp button with its padding ring reduced 20%;
+            // icon reduced 10% (24 → 22).
+            customSize={42}
             style={styles.closeFab}
             onPress={() => setDialogVisible(true)}
             accessibilityLabel="Disconnect"
@@ -317,8 +321,8 @@ export function ConnectScreen({ route, navigation }: Props) {
           <Dialog.Title>Disconnect?</Dialog.Title>
           <Dialog.Content>
             <Text style={styles.dialogText}>
-              This returns you to the home screen. The session stays in your
-              recent list.
+              This returns you to the home screen. The server stays in your
+              scanned list.
             </Text>
           </Dialog.Content>
           <Dialog.Actions>

@@ -8,10 +8,11 @@ A dark-themed React Native companion app for [opencode](https://opencode.ai). Sc
   `{"code":"...","urls":["https://..."]}` → opens `urls[0] + "/auth/connect/" + code`.
   The pairing link is **one-time and short-lived (~5 min)**; it authenticates the
   phone's WebView with a **session cookie that lasts 30 days**.
-- **Sessions** — the two most recent connected session **origins** are saved
-  on-device (Redux, persisted via AsyncStorage) and listed on the home screen.
-  Tapping a card reconnects to the origin — the WebView cookie re-authenticates,
-  so no new QR scan is needed while the 30-day session is valid.
+- **Scanned servers** — the three most recent scanned server **origins** are
+  saved on-device (Redux, persisted via AsyncStorage) and listed on the home
+  screen. Tapping a card reconnects to the origin — the WebView cookie
+  re-authenticates, so no new QR scan is needed while the 30-day session is
+  valid.
 - **Expiry estimate** — each session card shows the time-ago plus an estimated
   expiry (`1h ago · expires in 30 days`, from connect time + 30 days). Amber when
   ≤ 7 days remain, red `expired — scan QR again` when past due. The cookie's real
@@ -22,7 +23,11 @@ A dark-themed React Native companion app for [opencode](https://opencode.ai). Sc
   origin. Saving returns to the home screen immediately with a brief
   **"Server saved"** snackbar there.
 - **Settings** — version, opencode docs/issue links, toggles (auto-hide status
-  pill, WebView zoom), and clear-sessions / clear-servers with confirmation.
+  pill, WebView zoom), clear-scanned-servers / clear-servers with confirmation,
+  and a donation flow: "Buy me a coffee" opens a slide-up sheet with **Ko-fi**
+  (coming soon) and **GCash** (QR screen with a save-to-gallery download,
+  written to MediaStore by a local Kotlin native module — no permissions on
+  Android 10+).
 - **Disconnect** — the close button on the Connect screen confirms
   ("Disconnect?") and returns to the home screen; there is no in-app quit.
 - **Connection monitoring** — live status pill (Connecting… / Connected /
@@ -44,6 +49,8 @@ A dark-themed React Native companion app for [opencode](https://opencode.ai). Sc
 - `@react-navigation/native-stack` — navigation
 - `react-native-paper` — Material Design 3 components
 - `@react-native-clipboard/clipboard` — copy to clipboard
+- `gcash-image` — local Kotlin native module (TurboModule) that saves the GCash
+  QR image to the phone's gallery via MediaStore
 
 ## Project structure
 
@@ -61,7 +68,7 @@ src/
   store/                       # Redux Toolkit store (persisted)
     store.ts
     rootReducer.ts
-    sessionsSlice.ts           # recent sessions (max 2, origins)
+    sessionsSlice.ts           # scanned servers (max 3, origins)
     serversSlice.ts            # manually saved servers
     settingsSlice.ts           # user settings (pill auto-hide, zoom)
     uiSlice.ts                 # ephemeral UI state (e.g. serverSaved flag)
@@ -73,12 +80,16 @@ src/
     ScannerScreen.tsx          # camera + QR scanning
     ConnectScreen.tsx          # full-screen WebView + monitoring + disconnect + errors
     AddServerScreen.tsx        # manual host + port entry
-    SettingsScreen.tsx         # about, settings toggles, data clearing
+    SettingsScreen.tsx         # about, settings toggles, data clearing, donations
+    GcashDonationScreen.tsx    # GCash QR image + save-to-gallery download
   components/
-    SessionCard.tsx            # session row (time-ago, expiry label, long-press delete)
+    SessionCard.tsx            # scanned-server row (time-ago, expiry label, long-press delete)
     ServerCard.tsx             # saved-server row
     ScanOverlay.tsx
     ErrorPanel.tsx
+    DonationSheet.tsx          # slide-up sheet (Ko-fi / GCash options)
+native/
+  gcash-image/                 # local Kotlin native module (MediaStore gallery save)
 maestro/flows/                 # device E2E flows (Maestro)
 ```
 
@@ -113,7 +124,8 @@ yarn test:watch
 - `src/lib/__tests__/sessionExpiry.test.ts` — expiry boundaries and labels
 - `src/lib/webview/__tests__/imeFix.test.ts` — injected-script behavior
 - `src/components/__tests__/SessionCard.test.tsx` — card behavior (long-press → delete, expiry label/color)
-- `src/screens/__tests__/` — HomeScreen (snackbar on fresh save, expiry labels), AddServerScreen (save → immediate back), ConnectScreen, ScannerScreen, SettingsScreen
+- `src/components/__tests__/DonationSheet.test.tsx` — sheet options (Ko-fi / GCash)
+- `src/screens/__tests__/` — HomeScreen (snackbar on fresh save, expiry labels), AddServerScreen (save → immediate back), ConnectScreen (close FAB size/icon), ScannerScreen, SettingsScreen (donation sheet wiring), GcashDonationScreen (QR + gallery-save snackbar)
 - `jest-setup.js` — mocks for AsyncStorage, NetInfo, safe-area, and vector icons
 
 ### UI (device E2E, Maestro + ADB)
@@ -125,6 +137,7 @@ Flows live in `maestro/flows/`:
 | `connect-success-path.yaml` | session card → connect screen loads |
 | `connect-error-path.yaml` | 404 → expired panel → scan again |
 | `connect-monitor.yaml` | connected status pill + close FAB |
+| `donation-flow.yaml` | coffee → sheet → Ko-fi snackbar / GCash QR → gallery save |
 
 Run: `maestro test maestro/flows/<name>.yaml` (Maestro needs `JAVA_HOME` set).
 

@@ -78,7 +78,8 @@ describe('sessions slice', () => {
     let state = sessionsReducer(undefined, addSession({ url: 'http://a', connectedAt: 1 }));
     state = sessionsReducer(state, addSession({ url: 'http://b', connectedAt: 2 }));
     state = sessionsReducer(state, addSession({ url: 'http://c', connectedAt: 3 }));
-    expect(state.map((s) => s.url)).toEqual(['http://c', 'http://b']);
+    state = sessionsReducer(state, addSession({ url: 'http://d', connectedAt: 4 }));
+    expect(state.map((s) => s.url)).toEqual(['http://d', 'http://c', 'http://b']);
   });
 
   it('removes a session', () => {

@@ -28,6 +28,12 @@ npm-debug.*
 yarn-debug.*
 yarn-error.*
 
+# local build/test output logs
+metro.log
+jest-*.txt
+lint-out.txt
+gradle-*.txt
+
 # macOS
 .DS_Store
 *.pem

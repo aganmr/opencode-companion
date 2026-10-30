@@ -151,11 +151,11 @@ export function HomeScreen() {
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={styles.sectionLabel}>RECENT SESSIONS</Text>
+        <Text style={styles.sectionLabel}>SCANNED SERVERS</Text>
 
         {sessions.length === 0 ? (
           <View style={styles.empty}>
-            <Text style={styles.emptyText}>No recent sessions yet.</Text>
+            <Text style={styles.emptyText}>No scanned servers yet.</Text>
             <Text style={styles.emptyHint}>Scan a QR code to connect.</Text>
           </View>
         ) : (
@@ -236,10 +236,10 @@ export function HomeScreen() {
 
       <Portal>
         <Dialog visible={confirmUrl !== null} onDismiss={() => setConfirmUrl(null)}>
-          <Dialog.Title>Delete session?</Dialog.Title>
+          <Dialog.Title>Delete server?</Dialog.Title>
           <Dialog.Content>
             <Text style={styles.dialogText} numberOfLines={2}>
-              Remove “{confirmUrl}” from recent sessions?
+              Remove “{confirmUrl}” from scanned servers?
             </Text>
           </Dialog.Content>
           <Dialog.Actions>
@@ -297,14 +297,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: 24,
   },
-  // IconButton defaults to a 48dp touch target; the negative offsets pull it
-  // back onto the title line visually while keeping the full tap area.
+  // The 48dp IconButton is pulled up so its vertical center (24dp) lands on
+  // the "opencode" title line's center (lineHeight 36 / 2 = 18dp): 18 − 24 = −6.
   settingsButton: {
     marginRight: -10,
     marginTop: -6,
   },
   title: {
     fontSize: 30,
+    // Explicit line height so the settings-cog alignment math is exact.
+    lineHeight: 36,
     fontWeight: '700',
     color: oc.onSurface,
     letterSpacing: -0.5,

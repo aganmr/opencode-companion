@@ -84,6 +84,25 @@ jest.mock('@react-native-community/netinfo', () => ({
   useNetInfo: () => mockUseNetInfo(),
 }));
 
+// Vector icons: override jest-setup's mocks (which drop the `size` prop) so
+// the FAB test can assert the icon size. The root mock matters: the screen
+// imports MaterialCommunityIcons by name from the package root.
+jest.mock('@expo/vector-icons', () => {
+  const React = require('react');
+  const { Text } = require('react-native');
+  const Icon = ({ name, size, testID }: { name: string; size?: number; testID?: string }) =>
+    React.createElement(Text, { testID: testID || `icon-${name}`, size });
+  return { MaterialCommunityIcons: Icon, __esModule: true };
+});
+
+jest.mock('@expo/vector-icons/MaterialCommunityIcons', () => {
+  const React = require('react');
+  const { Text } = require('react-native');
+  const Icon = ({ name, size, testID }: { name: string; size?: number; testID?: string }) =>
+    React.createElement(Text, { testID: testID || `icon-${name}`, size });
+  return { default: Icon, __esModule: true };
+});
+
 const URL = 'http://192.168.0.131:8090/';
 
 const mockGoBack = jest.fn();
@@ -150,7 +169,7 @@ describe('ConnectScreen', () => {
 
     await fireEvent.press(screen.getByTestId('connect-close'));
     expect(screen.getByText('Disconnect?')).toBeTruthy();
-    expect(screen.getByText(/stays in your recent list/i)).toBeTruthy();
+    expect(screen.getByText(/stays in your scanned list/i)).toBeTruthy();
 
     // Cancel dismisses without navigating. (The paper Dialog keeps its
     // content mounted during the exit animation, so assert behavior, not
@@ -283,15 +302,16 @@ describe('ConnectScreen', () => {
     expect(paddingBottom()).toBe(0);
   });
 
-  it('renders the close FAB 18% smaller than the default medium size (46dp square)', async () => {
+  it('renders the close FAB at 42dp (padding ring −20% from 46dp) with a 22dp icon', async () => {
     await render(screenEl());
     // customSize lands on the inner content view (paper applies the FAB
     // dimensions there, not on the outer surface).
     const s = StyleSheet.flatten(
       screen.getByTestId('connect-close-content').props.style
     ) as { width?: number; height?: number };
-    expect(s.width).toBe(46);
-    expect(s.height).toBe(46);
+    expect(s.width).toBe(42);
+    expect(s.height).toBe(42);
+    expect(screen.getByTestId('icon-close').props.size).toBe(22);
   });
 
   it('does not register keyboard listeners on Android 11+ (WebView handles IME)', async () => {

@@ -86,12 +86,12 @@ function renderHome(store = makeSeededStore()) {
   );
 }
 
-describe('HomeScreen recent sessions', () => {
+describe('HomeScreen scanned servers', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('renders the recent session cards', async () => {
+  it('renders the scanned server cards', async () => {
     await renderHome();
     const cards = await screen.findAllByTestId('session-card');
     expect(cards).toHaveLength(2);
@@ -133,7 +133,7 @@ describe('HomeScreen recent sessions', () => {
     await fireEvent.press(screen.getByTestId('session-delete'));
 
     // Confirmation dialog appears.
-    expect(await screen.findByText('Delete session?')).toBeTruthy();
+    expect(await screen.findByText('Delete server?')).toBeTruthy();
 
     // Confirm. The active card also shows a "Delete" pill; the dialog's
     // button is the last one in the tree.
@@ -154,7 +154,7 @@ describe('HomeScreen recent sessions', () => {
 
     await fireEvent(cards[0], 'longPress');
     await fireEvent.press(screen.getByTestId('session-delete'));
-    expect(await screen.findByText('Delete session?')).toBeTruthy();
+    expect(await screen.findByText('Delete server?')).toBeTruthy();
 
     await fireEvent.press(screen.getByText('Cancel'));
 
