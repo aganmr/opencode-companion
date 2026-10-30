@@ -62,8 +62,9 @@ export function SettingsScreen() {
             </View>
             <View style={styles.noteRow}>
               <Text style={styles.note}>
-                An unofficial companion app for opencode. Not affiliated with or endorsed by
-                opencode.
+                An unofficial companion app for opencode. Not affiliated with, endorsed by,
+                or sponsored by Anomaly Innovations, Inc. OpenCode is a registered
+                trademark of Anomaly Innovations, Inc.
               </Text>
             </View>
           </Card>

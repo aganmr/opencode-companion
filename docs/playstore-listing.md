@@ -12,8 +12,8 @@ Character limits are Play's: short description 80, full description 4000.
 | Language | English (default) |
 | App type | Application |
 | App icon | `full-512.png` (512×512, in `icon-drafts/render/` — the Prompt Beacon) |
-| Version code | `10000` |
-| Version name | `1.0.0` |
+| Version code | `10100` |
+| Version name | `1.1.0` |
 | Minimum Android | Android 7.0 (API 24) |
 | Target Android | Android 15 (API 36) |
 | 64-bit | Yes (arm64-v8a) |
@@ -30,7 +30,7 @@ Scan a QR code to control your opencode sessions from your phone.
 ```
 Opencode Companion is an unofficial companion app for opencode, the AI coding agent. Scan the QR code shown by an opencode remote session and that session opens in a full-screen, browser-quality web view on your phone.
 
-Not affiliated with or endorsed by the opencode project.
+Unofficial community project. Not affiliated with, endorsed by, or sponsored by Anomaly Innovations, Inc. OpenCode is a registered trademark of Anomaly Innovations, Inc.
 
 WHAT YOU CAN DO
 • Scan to connect. Point your camera at the opencode remote QR code. The pairing link is one-time and short-lived (~5 minutes); one scan authenticates your phone for 30 days.
@@ -85,7 +85,20 @@ Android 7.0 (API 24) or later.
   servers (its core function, like a browser). Browsers are rated Everyone.
 - **Designed for kids:** No — "Not made for kids" (developer tool).
 
-## 7. Release notes (v1.0.0)
+## 7. Release notes
+
+### v1.1.0 (current)
+
+```
+• New "Prompt Beacon" app icon
+• Renamed to "Opencode Companion"
+• Splash screen fix (centered, undistorted beacon)
+• Removed wink emoji from donations subtext
+
+Unofficial community project — not affiliated with Anomaly Innovations, Inc.
+```
+
+### v1.0.0 (archive)
 
 ```
 First public release.
