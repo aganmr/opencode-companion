@@ -2,6 +2,17 @@
 
 A dark-themed React Native companion app for [opencode](https://opencode.ai). Scan an opencode remote QR code with your phone's camera and open the session's connect URL in a full-screen web view.
 
+> ## ⚠️ Unofficial project
+>
+> This app is an **independent community project. It is NOT affiliated with,
+> endorsed by, or sponsored by Anomaly Innovations, Inc.** or the OpenCode
+> team, and is not the official companion app for OpenCode.
+>
+> **OpenCode** is a registered trademark of **Anomaly Innovations, Inc.**
+> (U.S. Serial No. 99379413, registered May 19, 2026). All product names,
+> logos, and brands mentioned in this project are the property of their
+> respective owners and are used for identification purposes only.
+
 ## Features
 
 - **Scan** — camera-based QR scanning of the opencode remote QR payload:
