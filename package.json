@@ -44,7 +44,8 @@
     "web": "expo start --web",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "version:sync": "node scripts/version-sync.js"
   },
   "private": true
 }
