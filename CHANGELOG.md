@@ -4,6 +4,18 @@ All notable changes to this project are documented in this file.
 
 Versioning: `A.B.C` — **A** = breaking change / major overhaul, **B** = new feature, **C** = bug fix (each digit 0–99, with rollover to the left digit).
 
+## [1.1.0] - 2026-10-30
+
+### Added
+- New "Prompt Beacon" app icon (launcher, adaptive foreground/monochrome, and Play Store icon)
+
+### Changed
+- App renamed to "Opencode Companion" (launcher label and home header)
+
+### Fixed
+- Splash screen now shows a centered, undistorted beacon (the `AppTheme` window background is what renders at runtime)
+- Removed the wink emoji from the donations button subtext in Settings
+
 ## [1.0.0] - 2026-10-30
 
 First release.
