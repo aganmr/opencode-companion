@@ -134,7 +134,7 @@ export function HomeScreen() {
       {/* Fixed header: stays put while the lists scroll. */}
       <View style={[styles.headerBar, { paddingTop: insets.top + 20 }]}>
         <View>
-          <Text style={styles.title}>opencode</Text>
+          <Text style={styles.title}>Opencode</Text>
           <Text style={styles.subtitle}>companion</Text>
         </View>
         <IconButton

@@ -141,7 +141,7 @@ export function SettingsScreen() {
             <RowButton
               icon="coffee"
               label="Buy me a coffee"
-              sub="Enjoying the app? Support development with a coffee. 😉"
+              sub="Enjoying the app? Support development with a coffee."
               onPress={() => setDonationVisible(true)}
               testID="buy-me-a-coffee"
               last

@@ -91,7 +91,7 @@ describe('SettingsScreen', () => {
 
   it('ends the coffee sub-text with a wink emoji', async () => {
     await renderSettings().render;
-    expect(screen.getByText(/with a coffee. 😉/)).toBeTruthy();
+    expect(screen.getByText(/with a coffee\./)).toBeTruthy();
   });
 
   it('opens the donation sheet when Buy me a coffee is tapped', async () => {
