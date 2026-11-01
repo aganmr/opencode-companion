@@ -85,7 +85,7 @@ describe('SettingsScreen', () => {
   it('states the app is an unofficial companion', async () => {
     await renderSettings().render;
     expect(
-      screen.getByText(/unofficial companion app for opencode/i)
+      screen.getByText(/unofficial companion app created by Mark Agan for opencode/i)
     ).toBeTruthy();
   });
 

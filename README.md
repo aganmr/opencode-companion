@@ -13,6 +13,12 @@ A dark-themed React Native companion app for [opencode](https://opencode.ai). Sc
 > logos, and brands mentioned in this project are the property of their
 > respective owners and are used for identification purposes only.
 
+## Screens
+
+| Home | Add server | Connect |
+|:---:|:---:|:---:|
+| <img src="assets/readme/home.png" alt="Home screen: scanned and saved servers, QR scan entry" width="220"> | <img src="assets/readme/add-server.png" alt="Add Server screen: manual host and port entry" width="220"> | <img src="assets/readme/connect.png" alt="Connect screen: a live opencode session in the web view" width="220"> |
+
 ## Features
 
 - **Scan** — camera-based QR scanning of the opencode remote QR payload:
